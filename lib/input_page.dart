@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 
 const double bottomContainerHeight = 80.0;
-const Color activeCardColour = Color(0xFF1D1E33);
-const Color inactiveCardColour = Color(0xFF111328);
+const Color activeCardColour = Color(0xFF111328);
+const Color inactiveCardColour = Color(0xFF1D1E33);
 const Color bottomContainerColour = Color(0xFFEB1555);
 
 enum GenderType { male, female }
@@ -17,8 +17,7 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inactiveCardColour;
-  Color femaleCardColor = inactiveCardColour;
+  GenderType genderSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +34,13 @@ class _InputPageState extends State<InputPage> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        updateColor(GenderType.male);
+                        genderSelected = GenderType.male;
                       });
                     },
                     child: ReusableCard(
-                      colour: maleCardColor,
+                      colour: genderSelected == GenderType.male
+                          ? activeCardColour
+                          : inactiveCardColour,
                       cardChild: IconContent(
                           faIcon: FontAwesomeIcons.mars, gender: 'MALE'),
                     ),
@@ -49,11 +50,13 @@ class _InputPageState extends State<InputPage> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        updateColor(GenderType.female);
+                        genderSelected = GenderType.female;
                       });
                     },
                     child: ReusableCard(
-                      colour: femaleCardColor,
+                      colour: genderSelected == GenderType.female
+                          ? activeCardColour
+                          : inactiveCardColour,
                       cardChild: IconContent(
                         faIcon: FontAwesomeIcons.venus,
                         gender: 'FEMALE',
@@ -65,16 +68,16 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(colour: activeCardColour),
+            child: ReusableCard(colour: inactiveCardColour),
           ),
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: activeCardColour),
+                  child: ReusableCard(colour: inactiveCardColour),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: activeCardColour),
+                  child: ReusableCard(colour: inactiveCardColour),
                 ),
               ],
             ),
@@ -88,25 +91,5 @@ class _InputPageState extends State<InputPage> {
         ],
       ),
     );
-  }
-
-  void updateColor(GenderType gender) {
-    if (gender == GenderType.male) {
-      if (maleCardColor == inactiveCardColour) {
-        maleCardColor = activeCardColour;
-        femaleCardColor = inactiveCardColour;
-      } else {
-        maleCardColor = inactiveCardColour;
-        femaleCardColor = activeCardColour;
-      }
-    } else if (gender == GenderType.female) {
-      if (femaleCardColor == inactiveCardColour) {
-        femaleCardColor = activeCardColour;
-        maleCardColor = inactiveCardColour;
-      } else {
-        femaleCardColor = inactiveCardColour;
-        maleCardColor = activeCardColour;
-      }
-    }
   }
 }

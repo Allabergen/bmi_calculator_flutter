@@ -31,37 +31,33 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    colour: genderSelected == GenderType.male
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardChild: IconContent(
+                        faIcon: FontAwesomeIcons.mars, gender: 'MALE'),
+                    onPress: () {
                       setState(() {
                         genderSelected = GenderType.male;
                       });
                     },
-                    child: ReusableCard(
-                      colour: genderSelected == GenderType.male
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardChild: IconContent(
-                          faIcon: FontAwesomeIcons.mars, gender: 'MALE'),
-                    ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    colour: genderSelected == GenderType.female
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardChild: IconContent(
+                      faIcon: FontAwesomeIcons.venus,
+                      gender: 'FEMALE',
+                    ),
+                    onPress: () {
                       setState(() {
                         genderSelected = GenderType.female;
                       });
                     },
-                    child: ReusableCard(
-                      colour: genderSelected == GenderType.female
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardChild: IconContent(
-                        faIcon: FontAwesomeIcons.venus,
-                        gender: 'FEMALE',
-                      ),
-                    ),
                   ),
                 ),
               ],
